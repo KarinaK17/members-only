@@ -1,0 +1,23 @@
+<nav>
+  <% if (locals.user_in) {%>
+  <h1>WELCOME BACK <%= user_in.username %></h1>
+  <% if (!locals.user_in.membership_status) {%>
+  <a href="/join-club">Join the club</a>
+  <% } %> <% if (!locals.user_in.admin&&locals.user_in.membership_status) {%>
+  <a href="/become-admin">Become an admin</a>
+  <% } %>
+  <a href="/log-out">LOG OUT</a>
+  <% } else { %>
+  <h3>Please log in</h3>
+  <a href="/log-in">Log in</a>
+  <p>Don't have an account?</p>
+  <a href="/sign-up">Sign up</a>
+  <% } %>
+  <hr />
+  <img src="" alt="" />
+  <p>
+    Have a question?<br />
+    Please contact me at karina17korchinskaya@gmail.com
+  </p>
+  <p>Copyright &copy; Message Club 2023</p>
+</nav>

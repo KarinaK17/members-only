@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <%- include("./partials/nav.ejs") %>
+    <div>
+      <%- include("./partials/header.ejs") %>
+      <main>
+        <h2><%= title %></h2>
+        <p>
+          To become a member of our club you need to enter a secret password
+        </p>
+        <form action="" method="POST">
+          <section>
+            <label for="club_password">Secret password:</label>
+            <input
+              type="text"
+              id="club_password"
+              name="club_password"
+              required
+            />
+          </section>
+
+          <div>
+            <% if (locals.errors) { %>
+            <ul>
+              <% for (let error of errors) { %>
+              <li><%= error.msg %></li>
+              <% } %>
+            </ul>
+            <% } %>
+          </div>
+          <button type="submit">join</button>
+        </form>
+      </main>
+    </div>
+  </body>
+</html>

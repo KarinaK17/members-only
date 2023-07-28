@@ -2,42 +2,54 @@
 <html>
   <%- include("./partials/head.ejs") %>
   <body>
-    <%- include("./partials/nav.ejs") %>
-    <div>
+    <div class="content">
       <%- include("./partials/header.ejs") %>
       <main>
         <% if (locals.user_in) {%>
         <a href="/create-message">
-          <button>add new message</button>
+          <img class="letter-svg" src="/images/letter.svg" alt="add message" />
         </a>
-        <% } %> <% if (messages.length>0) {%> <% messages.forEach(message=>{ %>
-        <div class="message-container">
-          <div class="message-details">
-            <h3 class="message-title"><%= message.title %></h3>
-            <% if (locals.user_in) { if (locals.user_in.membership_status ||
-            locals.user_in.admin) {%>
-            <div class="message-time-and-author">
-              <p><%= message.time %></p>
-              <p><%= message.author.name %></p>
+
+        <% } %>
+        <div class="messages">
+          <% if (messages.length>0) {%> <% messages.forEach(message=>{ %>
+          <div class="message-container">
+            <div class="message-details">
+              <h3 class="message-title"><%= message.title %></h3>
+              <% if (locals.user_in) { if (locals.user_in.membership_status ||
+              locals.user_in.admin) {%>
+              <div class="message-time-and-author">
+                <p><%= format(message.time, "PPPp") %></p>
+                <p>from <%= message.author.username %></p>
+              </div>
+              <% }} %> <% if (locals.user_in) { if (locals.user_in.admin) {%>
+              <form method="POST" action="/delete-message">
+                <input
+                  type="hidden"
+                  name="message_id"
+                  value="<%=  message._id %>"
+                  required="true"
+                />
+                <button type="submit">
+                  <img
+                    class="bin-svg"
+                    src="/images/bin.svg"
+                    alt="delete message"
+                  />
+                </button>
+              </form>
+              <% }} %>
             </div>
-            <% }} %> <% if (locals.user_in) { if (locals.user_in.admin) {%>
-            <form method="POST" action="/delete-message">
-              <input
-                type="hidden"
-                name="message_id"
-                value="<%=  message.id %>"
-                required="true"
-              />
-              <button type="submit">Delete</button>
-            </form>
-            <% }} %>
+            <div class="message-text">
+              <p><%= message.text %></p>
+            </div>
           </div>
-          <div class="message-text">
-            <p><%= message.text %></p>
-          </div>
+          <%}) %> <% } else { %>
+          <p class="no-messages">There are no messages yet!</p>
+          <% } %>
         </div>
-        <%}) %> <% } %>
       </main>
     </div>
+    <%- include("./partials/nav.ejs") %>
   </body>
 </html>

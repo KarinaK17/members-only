@@ -1,11 +1,258 @@
+:root {
+  --primary-color: #008cff;
+  --light-color: #cce5fa;
+  --dark-color: #1b2f72;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  min-height: 100%;
+  padding: 1rem 3rem 0;
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+header a {
+  color: black;
+  text-shadow: 2px 3px 2px var(--primary-color);
+  text-decoration: none;
+}
+
+nav {
+  max-width: 25rem;
+  border: 1px #cfcfcf solid;
+  padding: 1rem;
+  box-shadow: -8px 2px 8px 2px #888;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: clamp(14px, 1.1rem, 1.5vw);
+}
+
+nav img {
+  width: 100%;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+nav h2,
+.profile {
+  font-size: clamp(18px, 1.5rem, 1.8vw);
+}
+
+nav h3 {
+  font-size: clamp(16px, 1.3rem, 1.5vw);
+}
+
+.profile-svg {
+  width: 2rem;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: bold;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.content {
+  padding: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: clamp(25px, 2.4rem, 2.8vw);
+  margin-bottom: 1rem;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: clamp(15px, 1.2rem, 1.4vw);
+}
+
+.message-container {
+  /* border: 2px solid var(--dark-color); */
+  border-radius: 10px;
+  background-color: var(--light-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.message-details {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
+.message-title {
+  padding: 0.5rem;
+  font-size: clamp(18px, 1.4rem, 1.6vw);
+}
+
+.message-time-and-author {
+  /* border-right: 2px solid var(--dark-color); */
+  border-left: 2px solid white;
+  padding: 0.5rem;
+}
+
+.message-container form {
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: 3rem;
+}
+
+.message-text {
+  border-top: 2px solid white;
+  padding: 0.5rem;
+}
+
+.letter-svg {
+  width: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.bin-svg {
+  width: 2rem;
+}
+
+.messages button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+main {
+  align-self: center;
+}
+
+.with-picture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main h2 {
+  font-size: clamp(20px, 1.5rem, 1.7vw);
+  margin-bottom: 1rem;
+}
+
+.become-admin-form,
+.create-message-form,
+.join-club-form,
+.log-in-form,
+.sign-up-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+section {
+  display: flex;
+  gap: 1rem;
+}
+
+label {
+  font-size: clamp(16px, 1.2rem, 1.4vw);
+}
+
+section input {
+  flex-grow: 1;
+  font-size: clamp(15px, 1.1rem, 1.3vw);
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.become-admin-form button,
+.create-message-form button,
+.join-club-form button,
+.log-in-form button,
+.sign-up-form button {
+  align-self: center;
+  padding: 4px 8px;
+  font-size: clamp(16px, 1.2rem, 1.4vw);
+  background-color: var(--light-color);
+  cursor: pointer;
+}
+
+.become-admin-form button:hover,
+.create-message-form button:hover,
+.join-club-form button:hover,
+.log-in-form button:hover,
+.sign-up-form button:hover {
+  font-weight: bold;
+  box-shadow: 2px 2px 4px grey;
+}
+
+.conditions {
+  font-size: clamp(16px, 1.2rem, 1.4vw);
+  margin-bottom: 2rem;
+}
+
+.errors {
+  font-size: clamp(16px, 1.2rem, 1.4vw);
+  text-shadow: 1px 1px 2px red;
+}
+
+.errors ul {
+  list-style-position: inside;
+}
+
 a {
-  color: #00b7ff;
+  color: var(--primary-color);
+}
+
+.picture {
+  max-width: 300px;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 1200px) {
+  body {
+    flex-direction: column-reverse;
+  }
+
+  .footer {
+    display: none;
+  }
+
+  nav {
+    max-width: 100%;
+  }
 }

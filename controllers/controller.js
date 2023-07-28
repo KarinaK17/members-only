@@ -5,6 +5,7 @@ const { body, validationResult } = require("express-validator");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const flash = require("express-flash");
+var format = require("date-fns/format");
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -28,7 +29,12 @@ exports.messages_display = asyncHandler(async (req, res, next) => {
     .sort({ time: -1 })
     .populate("author")
     .exec();
-  res.render("index", { title: "Home", user_in: req.user, messages });
+  res.render("index", {
+    title: "Home",
+    user_in: req.user,
+    messages,
+    format: format,
+  });
 });
 
 // Display sign up form on get
@@ -91,7 +97,7 @@ exports.sign_up_post = [
           return;
         } else {
           await user.save();
-          res.redirect("/");
+          res.redirect("/log-in");
         }
       }
     });
@@ -144,6 +150,7 @@ exports.create_message_post = [
     const message = new Message({
       title: req.body.title,
       text: req.body.text,
+      time: Date.now(),
       author: req.user,
     });
 
@@ -163,9 +170,12 @@ exports.join_club_get = [
 // Display join the club form on post
 exports.join_club_post = [
   body("club_password")
+    .toLowerCase()
     .custom((value) => {
-      if (value !== "54321") {
-        throw new Error("Incorrect password");
+      if (value !== "belarus") {
+        throw new Error(
+          "Incorrect password. Hint: it start with a letter 'B'."
+        );
       } else {
         return true;
       }
@@ -200,9 +210,10 @@ exports.become_admin_get = [
 // Display become admin form on post
 exports.become_admin_post = [
   body("admin_password")
+    .toLowerCase()
     .custom((value) => {
-      if (value !== "12345") {
-        throw new Error("Incorrect password");
+      if (value !== "minsk") {
+        throw new Error("Incorrect password. Hint: it starts with letter 'M'.");
       } else {
         return true;
       }
@@ -214,7 +225,7 @@ exports.become_admin_post = [
     if (!errors.isEmpty()) {
       console.log(errors);
       res.render("become-admin", {
-        title: "Becoma an admin",
+        title: "Become an admin",
         errors: errors.array(),
       });
       return;

@@ -2,15 +2,16 @@
 <html>
   <%- include("./partials/head.ejs") %>
   <body>
-    <%- include("./partials/nav.ejs") %>
-    <div>
+    <div class="content">
       <%- include("./partials/header.ejs") %>
-      <main>
+      <main class="with-picture">
         <h2><%= title %></h2>
-        <p>
-          To become a member of our club you need to enter a secret password
+        <p class="conditions">
+          To become a member of our club you need to enter the name of the
+          country in the picture.
         </p>
-        <form action="" method="POST">
+        <img class="picture" src="/images/picture.jpg" alt="" />
+        <form action="" method="POST" class="join-club-form">
           <section>
             <label for="club_password">Secret password:</label>
             <input
@@ -21,7 +22,7 @@
             />
           </section>
 
-          <div>
+          <div class="errors">
             <% if (locals.errors) { %>
             <ul>
               <% for (let error of errors) { %>
@@ -30,9 +31,15 @@
             </ul>
             <% } %>
           </div>
-          <button type="submit">join</button>
+          <div class="buttons">
+            <button type="submit">Join</button>
+            <button type="button" onclick="location.href='/'">
+              Return home
+            </button>
+          </div>
         </form>
       </main>
     </div>
+    <%- include("./partials/nav.ejs") %>
   </body>
 </html>

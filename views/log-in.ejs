@@ -2,12 +2,11 @@
 <html>
   <%- include("./partials/head.ejs") %>
   <body>
-    <%- include("./partials/nav.ejs") %>
-    <div>
+    <div class="content">
       <%- include("./partials/header.ejs") %>
       <main>
         <h2><%= title %></h2>
-        <form action="" method="POST">
+        <form action="" method="POST" class="log-in-form">
           <section>
             <label for="username">Username (e-mail):</label>
             <input type="email" id="username" name="username" required />
@@ -16,14 +15,20 @@
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required />
           </section>
-          <div>
+          <div class="errors">
             <% if (messages.error) { %>
             <p><%= messages.error %></p>
             <% } %>
           </div>
-          <button type="submit">Log in</button>
+          <div class="buttons">
+            <button type="submit">Log in</button>
+            <button type="button" onclick="location.href='/'">
+              Return home
+            </button>
+          </div>
         </form>
       </main>
     </div>
+    <%- include("./partials/nav.ejs") %>
   </body>
 </html>

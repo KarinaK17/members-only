@@ -2,12 +2,11 @@
 <html>
   <%- include("./partials/head.ejs") %>
   <body>
-    <%- include("./partials/nav.ejs") %>
-    <div>
+    <div class="content">
       <%- include("./partials/header.ejs") %>
       <main>
         <h2><%= title %></h2>
-        <form action="" method="POST">
+        <form action="" method="POST" class="sign-up-form">
           <section>
             <label for="first_name">First name:</label>
             <input type="text" id="first_name" name="first_name" maxlength="20"
@@ -42,7 +41,7 @@
               required
             />
           </section>
-          <div>
+          <div class="errors">
             <% if (locals.errors) { %>
             <ul>
               <% for (let error of errors) { %>
@@ -51,9 +50,15 @@
             </ul>
             <% } %>
           </div>
-          <button type="submit">Sign up</button>
+          <div class="buttons">
+            <button type="submit">Sign up</button>
+            <button type="button" onclick="location.href='/'">
+              Return home
+            </button>
+          </div>
         </form>
       </main>
     </div>
+    <%- include("./partials/nav.ejs") %>
   </body>
 </html>

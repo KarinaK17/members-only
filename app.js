@@ -6,10 +6,14 @@ const logger = require("morgan");
 const dotenv = require("dotenv").config();
 
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 const flash = require("express-flash");
+
+const compression = require("compression");
+const helmet = require("helmet");
 
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
@@ -28,6 +32,16 @@ main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(mongoDB);
 }
+
+app.use(compression());
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 100,
+});
+// Apply rate limiter to all requests
+app.use(limiter);
+app.use(helmet());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -75,6 +89,7 @@ app.use(
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: process.env.CONNECTION_STRING }),
   })
 );
 app.use(passport.initialize());
